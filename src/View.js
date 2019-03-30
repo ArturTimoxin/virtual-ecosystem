@@ -13,7 +13,7 @@ View.prototype.look = function(dir) {
   // console.log(this.vector.plus(directions[dir]));
   let target = this.vector.plus(directions[dir]);
   // console.log(this.world.grid.get(target)); // TODO: ??? Some problem
-  console.log(charFromElement(this.world));
+  // console.log(charFromElement(this.world));
   if (this.world.grid.isInside(target)) {
     return charFromElement(this.world.grid.get(target));
   } else {

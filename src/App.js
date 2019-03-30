@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import World from "./World";
+import LifeLikeWorld from "./World";
 import Wall from "./Wall";
-import RandomMove from "./RandomMove";
+// import RandomMove from "./RandomMove";
+import Herbivore from "./Herbivore";
+import Grass from "./Grass";
 import { plan1 } from "./startPlans";
 import "./App.css";
 class App extends Component {
@@ -10,12 +12,13 @@ class App extends Component {
   };
 
   componentDidMount() {
-    let world = new World(plan1, { "#": Wall, o: RandomMove });
+    let world = new LifeLikeWorld(plan1, { "#": Wall, o: Herbivore, "*": Grass });
     this.setState({ world: world.getMap() });
-    setInterval(() => {
-      world.turn();
-      this.setState({ world: world.getMap() });
-    }, 1000);
+    world.turn();
+    // setInterval(() => {
+    //   world.turn();
+    //   this.setState({ world: world.getMap() });
+    // }, 1000);
   }
 
   render() {
