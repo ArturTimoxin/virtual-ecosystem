@@ -1,15 +1,6 @@
-//для того чтобы изменить логику существования существ необходимо переопределить метод letAct
-// чтобы не уничтожать старый используем наследование
-// Новый letAct передаёт работу по совершению действий в разные функции, хранящиеся в объекте actionTypes.
-import World from "./World";
-import View from "./View";
 import { elementFromChar } from "./World";
-function LifelikeWorld(map, legend) {
-  World.call(this, map, legend);
-}
-LifelikeWorld.prototype = Object.create(World.prototype);
 
-let actionTypes = Object.create(null);
+export const actionTypes = Object.create(null);
 
 // Рост всегда успешен и добавляет половину единицы к энергетическому
 // уровню растения.
@@ -27,6 +18,8 @@ actionTypes.grow = function(critter) {
 */
 
 actionTypes.move = function(critter, vector, action) {
+  // TODO: Don't activate
+  // console.log("123");
   let dest = this.checkDestination(action, vector);
   if (dest == null || critter.energy <= 1 || this.grid.get(dest) != null) return false;
   critter.energy -= 1;
@@ -52,19 +45,11 @@ actionTypes.eat = function(critter, vector, action) {
 // если хватает, то ребенок перемещается на соседнюю клетку а энергия родителя тратится
 
 actionTypes.reproduce = function(critter, vector, action) {
+  console.log(this);
   let baby = elementFromChar(this.legend, critter.originChar);
   let dest = this.checkDestination(action, vector);
   if (dest == null || critter.energy <= 2 * baby.energy || this.grid.get(dest) != null) return false;
   critter.energy -= 2 * baby.energy;
   this.grid.set(dest, baby);
   return true;
-};
-
-LifelikeWorld.prototype.letAct = function(critter, vector) {
-  let action = critter.act(new View(this, vector));
-  let handled = action && action.type in actionTypes && actionTypes[action.type].call(this, critter, vector, action);
-  if (!handled) {
-    critter.energy -= 0.2;
-    if (critter.energy <= 0) this.grid.set(vector, null);
-  }
 };

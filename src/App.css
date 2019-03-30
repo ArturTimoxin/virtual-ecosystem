@@ -10,6 +10,12 @@ body {
   align-items: center;
 }
 
+#world {
+  display: block;
+  font-family: monospace;
+  white-space: pre;
+}
+
 .string {
   white-space: pre;
 }

@@ -6,6 +6,7 @@
 
 import Grid from "./Grid";
 import Vector from "./Vector";
+import { actionTypes } from "./actionTypes";
 import { directions } from "./RandomMove";
 import View from "./View";
 // создаётся экземпляр нужного типа, находя конструетор сивола и применяя к нему new
@@ -19,9 +20,7 @@ export function elementFromChar(legend, ch) {
 // превразает в пустую строку если
 
 export function charFromElement(element) {
-  //   if (element == null) return " ";
-  //   else return element.originChar;
-  return element === null ? "  " : element.originChar;
+  return element === null ? " " : element.originChar;
 }
 
 export default function World(plan, legend) {
@@ -75,25 +74,25 @@ World.prototype.turn = function() {
     что было существо, null, и сохраняем существо в клетке назначения.
 */
 
+// Новый letAct передаёт работу по совершению действий в разные функции, хранящиеся в объекте actionTypes
+
 World.prototype.letAct = function(critter, vector) {
   // просим существо действовать с объектом view который  знает про мир и потожение существа в мире
   // метод act возвращает какое либо действие
   // console.log(this);
   // this сейчас это объект мира, в котором производятся действия
-  let action = critter.act(new View(this, vector)); // TODO: Here is problem
+  let action = critter.act(new View(this, vector));
 
-  if (action && action.type === "move") {
-    let dest = this.checkDestination(action, vector);
-    if (dest && this.grid.get(dest) === null) {
-      this.grid.set(vector, null);
-      this.grid.set(dest, critter);
-    }
+  let handled = action && action.type in actionTypes && actionTypes[action.type].call(this, critter, vector, action);
+  if (!handled) {
+    critter.energy -= 0.2;
+    if (critter.energy <= 0) this.grid.set(vector, null);
   }
 };
 
 World.prototype.checkDestination = function(action, vector) {
   if (directions.hasOwnProperty(action.direction)) {
-    let dest = vector.plus(directions[action.direction]);
+    var dest = vector.plus(directions[action.direction]);
     if (this.grid.isInside(dest)) return dest;
   }
 };

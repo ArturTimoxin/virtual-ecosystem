@@ -20,9 +20,3 @@ export default function RandomMove() {
   // возвращает массив свойств объекта, из которых выбирается случайный (случайное направление)
   this.direction = randomElement(Object.keys(directions));
 }
-// TODO: ??? Some problem
-RandomMove.prototype.act = function(view) {
-  console.log(view.look(this.direction));
-  if (view.look(this.direction) !== "  ") this.direction = view.find("  ") || "s";
-  return { type: "move", direction: this.direction };
-};

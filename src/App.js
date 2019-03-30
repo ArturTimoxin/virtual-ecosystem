@@ -1,31 +1,42 @@
 import React, { Component } from "react";
-import LifeLikeWorld from "./World";
+import World from "./World";
 import Wall from "./Wall";
-// import RandomMove from "./RandomMove";
 import Herbivore from "./Herbivore";
+import Predator from "./Predator";
 import Grass from "./Grass";
-import { plan1 } from "./startPlans";
 import "./App.css";
 class App extends Component {
   state = {
-    world: [],
+    world: [
+      "############################",
+      "#      #    #             ##",
+      "#                          #",
+      "#     o          #####     #",
+      "##          #   #    ##    #",
+      "###            ##     #    #",
+      "#           ###      #     #",
+      "#   ####                   #",
+      "#   ##                     #",
+      "#    #          @      ### #",
+      "#    #                     #",
+      "############################",
+    ],
   };
 
   componentDidMount() {
-    let world = new LifeLikeWorld(plan1, { "#": Wall, o: Herbivore, "*": Grass });
+    let world = new World(this.state.world, { "#": Wall, o: Herbivore, "*": Grass, "@": Predator });
     this.setState({ world: world.getMap() });
-    world.turn();
-    // setInterval(() => {
-    //   world.turn();
-    //   this.setState({ world: world.getMap() });
-    // }, 1000);
+    setInterval(() => {
+      world.turn();
+      this.setState({ world: world.getMap() });
+    }, 300);
   }
 
   render() {
     const { world } = this.state;
     return (
       <div className="App">
-        <div className="world">
+        <div id="world">
           {world.map((string, i) => {
             return (
               <div className="string" key={i}>
