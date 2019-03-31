@@ -12,14 +12,12 @@ actionTypes.grow = function(critter) {
 
 /*
     1. Предоставляет ли действие допустимое направление (checkDestination)
-    2. Если не предоставляет, или в том направлении не пустой участок или у существа не хватает энергии 
-        - move возвращает false, т.о. показывая что действие не состоялось. 
-    3. Если все ок, двигаем существо и возвращаем энергию.
+    2. Если не предоставляет, или в том направлении не пустой участок или у 
+        существа не хватает энергии - move возвращает false, т.о. показывая что действие не состоялось. 
+    3. Если все ок, двигаем существо.
 */
 
 actionTypes.move = function(critter, vector, action) {
-  // TODO: Don't activate
-  // console.log("123");
   let dest = this.checkDestination(action, vector);
   if (dest == null || critter.energy <= 1 || this.grid.get(dest) != null) return false;
   critter.energy -= 1;
@@ -42,14 +40,16 @@ actionTypes.eat = function(critter, vector, action) {
 
 // размножение отнимает в 2 раза больше энергии чем есть у новорожденного.
 // переменная baby - гипотетический отпрыск, с помощью которого проверяем хватает ли у его родителя энергии для его рождения
-// если хватает, то ребенок перемещается на соседнюю клетку а энергия родителя тратится
-
+// энергия гипотетического ребенка = нач. значению энергии при создании существа
+// энергия родителя должна быть в 2 раза больше его начальной (стартовой) энергии.
+// если её хватает, то ребенок перемещается на соседнюю клетку.
+//
 actionTypes.reproduce = function(critter, vector, action) {
-  console.log(this);
   let baby = elementFromChar(this.legend, critter.originChar);
   let dest = this.checkDestination(action, vector);
   if (dest == null || critter.energy <= 2 * baby.energy || this.grid.get(dest) != null) return false;
-  critter.energy -= 2 * baby.energy;
+  critter.energy /= 2;
+  baby.energy = critter.energy;
   this.grid.set(dest, baby);
   return true;
 };

@@ -1,50 +1,23 @@
 import React, { Component } from "react";
-import World from "./World";
-import Wall from "./Wall";
-import Herbivore from "./Herbivore";
-import Predator from "./Predator";
-import Grass from "./Grass";
+import ViewWorld from "./components/ViewWorld/ViewWorld";
+import CustomizeWorld from "./components/CustomizeWorld/CustomizeWorld";
 import "./App.css";
+
 class App extends Component {
   state = {
-    world: [
-      "############################",
-      "#      #    #             ##",
-      "#                          #",
-      "#     o          #####     #",
-      "##          #   #    ##    #",
-      "###            ##     #    #",
-      "#           ###      #     #",
-      "#   ####                   #",
-      "#   ##                     #",
-      "#    #          @      ### #",
-      "#    #                     #",
-      "############################",
-    ],
+    showViewWorld: true,
   };
 
-  componentDidMount() {
-    let world = new World(this.state.world, { "#": Wall, o: Herbivore, "*": Grass, "@": Predator });
-    this.setState({ world: world.getMap() });
-    setInterval(() => {
-      world.turn();
-      this.setState({ world: world.getMap() });
-    }, 300);
-  }
+  toggleShowViewWorld = () => {
+    this.setState({ showViewWorld: !this.state.showViewWorld });
+  };
 
   render() {
-    const { world } = this.state;
+    const { showViewWorld } = this.state;
     return (
       <div className="App">
-        <div id="world">
-          {world.map((string, i) => {
-            return (
-              <div className="string" key={i}>
-                {string}
-              </div>
-            );
-          })}
-        </div>
+        <h1>Virtual Ecosystem</h1>
+        {showViewWorld ? <ViewWorld /> : <CustomizeWorld />}
       </div>
     );
   }

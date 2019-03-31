@@ -1,3 +1,5 @@
+@import "./components/ViewWorld/style.css";
+
 body {
   margin: 0;
   position: relative;
@@ -6,16 +8,11 @@ body {
 .App {
   height: 100vh;
   display: flex;
-  justify-content: center;
   align-items: center;
+  flex-direction: column;
+  background: linear-gradient(to top, #fefcea, #f4ce42);
 }
 
-#world {
-  display: block;
-  font-family: monospace;
-  white-space: pre;
-}
-
-.string {
-  white-space: pre;
+h1 {
+  font-family: Arial, Helvetica, sans-serif;
 }

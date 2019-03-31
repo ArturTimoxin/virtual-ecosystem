@@ -1,0 +1,72 @@
+.viewWorld {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.wrapperInfoWorld {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 20px;
+}
+
+.wrapperInfoWorld .columnInfoWorld .infoCount {
+  margin: 7px 0px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 17px;
+}
+
+.wrapperButtons {
+  display: flex;
+  justify-content: space-between;
+}
+button {
+  border: none;
+  text-decoration: none;
+  width: 100px;
+  height: 50px;
+  border-radius: 5px;
+  margin: 5px;
+  font-size: 20px;
+  color: white;
+  outline: none;
+  cursor: pointer;
+}
+
+#btnStart-Pause {
+  background-color: rgb(64, 199, 129);
+  box-shadow: 0 -3px rgb(53, 167, 110) inset;
+}
+
+#btnStart-Pause:hover {
+  background: rgb(53, 167, 110);
+}
+
+#btnRestart {
+  background-color: rgb(255, 107, 116);
+  box-shadow: 0 -3px rgb(216, 60, 70) inset;
+}
+
+#btnRestart:hover {
+  background: rgb(216, 60, 70);
+}
+
+#btnNextStep {
+  background-color: rgb(91, 153, 255);
+  box-shadow: 0 -3px rgb(28, 95, 204) inset;
+}
+
+#btnNextStep:hover {
+  background: rgb(28, 95, 204);
+}
+
+#world {
+  display: block;
+  font-family: monospace;
+  white-space: pre;
+}
+
+.string {
+  white-space: pre;
+}
