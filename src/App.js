@@ -1,70 +1,59 @@
 import React, { Component } from "react";
 import ViewWorld from "./components/ViewWorld/ViewWorld";
-import CustomizeWorld from "./components/CustomizeWorld/CustomizeWorld";
+import WorldSettings from "./components/WorldSettings/WorldSettings";
+import { largePlan, mediumPlan, smallPlan } from "./startPlanesWorld";
 import "./App.css";
 
 class App extends Component {
   state = {
     showViewWorld: false,
-    widthMap: 20,
-    heightMap: 20,
-    countHerbivores: 15,
-    initialEnergyHerbivore: 20,
-    countPredators: 10,
-    initialEnergyPredators: 20,
-    countGrass: 30,
-    initialEnergyGrass: 4,
-    countWalls: 5,
     turnDelay: 300,
+    sizeWorld: mediumPlan,
   };
 
   toggleShowViewWorld = () => {
     this.setState({ showViewWorld: !this.state.showViewWorld });
   };
 
-  setCustomizeSettingsWorld = e => {
-    e.preventDefault();
-    console.log(this.state);
-    this.toggleShowViewWorld();
+  setValue = e => {
+    this.setState({ [e.target.name]: e.target.value });
   };
 
-  setCustomMapValue = e => {
-    this.setState({ [e.target.name]: Number(e.target.value) });
+  changeSizeWorld = e => {
+    console.log(e.target.value);
+    switch (e.target.value) {
+      case "largePlan": {
+        this.setState({ sizeWorld: largePlan });
+        break;
+      }
+      case "mediumPlan": {
+        this.setState({ sizeWorld: mediumPlan });
+        break;
+      }
+      case "smallPlan": {
+        this.setState({ sizeWorld: smallPlan });
+        break;
+      }
+      default: {
+        return;
+      }
+    }
   };
 
   render() {
-    const {
-      showViewWorld,
-      widthMap,
-      heightMap,
-      countHerbivores,
-      initialEnergyHerbivore,
-      countPredators,
-      initialEnergyPredators,
-      countGrass,
-      initialEnergyGrass,
-      countWalls,
-      turnDelay,
-    } = this.state;
+    const { showViewWorld, turnDelay, sizeWorld } = this.state;
     return (
       <div className="App">
         <h1>Virtual Ecosystem</h1>
         {showViewWorld ? (
-          <ViewWorld toggleShowViewWorld={this.toggleShowViewWorld} />
+          <ViewWorld toggleShowViewWorld={this.toggleShowViewWorld} turnDelay={turnDelay} sizeWorld={sizeWorld} />
         ) : (
-          <CustomizeWorld
-            setCustomizeSettingsWorld={this.setCustomizeSettingsWorld}
-            setCustomMapValue={this.setCustomMapValue}
-            widthMap={widthMap}
-            heightMap={heightMap}
-            countHerbivores={countHerbivores}
-            initialEnergyHerbivore={initialEnergyHerbivore}
-            countPredators={countPredators}
-            initialEnergyPredators={initialEnergyPredators}
-            countGrass={countGrass}
-            initialEnergyGrass={initialEnergyGrass}
-            countWalls={countWalls}
-            turnDelay={turnDelay}
+          <WorldSettings
+            toggleShowViewWorld={this.toggleShowViewWorld}
+            setValue={this.setValue}
+            changeSizeWorld={this.changeSizeWorld}
+            defaultTurnDelay={turnDelay}
+            defaultSizeWorld={sizeWorld}
           />
         )}
       </div>

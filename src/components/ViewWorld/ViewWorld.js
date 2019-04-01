@@ -4,7 +4,6 @@ import Wall from "../../interface/entities/Wall";
 import Herbivore from "../../interface/entities/Herbivore";
 import Predator from "../../interface/entities/Predator";
 import Grass from "../../interface/entities/Grass";
-import { mediumPlan } from "../../startPlanesWorld";
 class ViewWorld extends Component {
   state = {
     world: [],
@@ -18,7 +17,7 @@ class ViewWorld extends Component {
   }
 
   createWorld = () => {
-    let world = new World(mediumPlan, { "#": Wall, o: Herbivore, "*": Grass, "@": Predator });
+    let world = new World(this.props.sizeWorld, { "#": Wall, o: Herbivore, "*": Grass, "@": Predator });
     this.setState({ worldObj: world, world: world.getMapInfo().output, infoWorld: world.getMapInfo().countOfEntities });
   };
 
@@ -39,7 +38,7 @@ class ViewWorld extends Component {
           world: this.state.worldObj.getMapInfo().output,
           infoWorld: this.state.worldObj.getMapInfo().countOfEntities,
         });
-      }, 300);
+      }, this.props.turnDelay);
       this.setState({ timerId: timerId, titleStartBtn: "Pause" });
     }
   };
@@ -88,8 +87,8 @@ class ViewWorld extends Component {
           })}
         </div>
         <div className="wrapBackToSettings">
-          <button onClick={toggleShowViewWorld} type="button" class="btn btn-secondary">
-            Back to Customize Map
+          <button onClick={toggleShowViewWorld} id="btnBack" type="button" className="btn btn-secondary">
+            Back to World Settings
           </button>
         </div>
       </div>

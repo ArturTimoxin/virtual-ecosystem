@@ -11,7 +11,7 @@ export function randomElement(array) {
 }
 
 export const directions = {
-  // возможныне направления движения/поля зрения существа
+  // возможные направления движения/поля зрения существа
   n: new Vector(0, -1),
   ne: new Vector(1, -1),
   e: new Vector(1, 0),

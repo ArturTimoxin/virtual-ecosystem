@@ -26,3 +26,7 @@
 .string {
   white-space: pre;
 }
+
+#btnBack {
+  margin: 10px;
+}

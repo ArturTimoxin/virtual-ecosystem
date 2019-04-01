@@ -6,11 +6,9 @@ body {
 }
 
 .App {
-  height: 100vh;
   display: flex;
   align-items: center;
   flex-direction: column;
-  background: linear-gradient(to top, #fefcea, #f4ce42);
 }
 
 h1 {
