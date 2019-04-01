@@ -9,7 +9,7 @@ export default function WorldSettings(props) {
         <label htmlFor="turnDelay">Turn Delay (in milliseconds):</label>
         <input
           type="number"
-          min="50"
+          min="0"
           id="turnDelay"
           className="form-control"
           name="turnDelay"
