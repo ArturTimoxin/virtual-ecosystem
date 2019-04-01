@@ -1,68 +1,22 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The project is the construction of a virtual ecosystem,
+a small world inhabited by creatures that move and fight for survival.
+The world will be a two-dimensional grid, where each entity occupies one cell.
+On each turn, creatures will be able to perform some action.
 
-## Available Scripts
+Symbols:
 
-In the project directory, you can run:
+"#" - wall, does not move, acts as an obstacle
 
-### `npm start`
+" "(space) - empty space to become
+"o" - herbivorous creature, can walk in any direction, eat grass, multiply
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+"\*" grass - serves as food for herbivores, can multiply
+@ - predatory creature, eat herbivores does not eat grass, can multiply.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+With a given delay, the move is performed, every living creature moves in a random direction, eating its food, if it is in sight. The field of view of any entity is 1 cell around the creature.
+Each entity has a supply of energy that is replenished with food. The amount of energy of the creature that eats is replenished by the amount of energy of the creature that it eats, and the amount of energy of the second being becomes 0, i.e. the creature is dying.
+Each turn, the amount of energy of the creature that made the step decreases by 1. If the amount of energy is 0, the creature dies. If the amount of energy reaches a given value, then a creature of the same type appears in a random neighboring cell, and the energy of the “parent” is divided into 2 and the “daughter” creature receives this half of the energy from the parent.
 
-### `npm test`
+![img1](https://i.ibb.co/QQ64170/Screenshot-179.png)
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+![img2](https://i.ibb.co/CQVvdq1/Screenshot-181.png)
