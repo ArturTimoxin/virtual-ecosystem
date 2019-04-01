@@ -17,7 +17,6 @@ export default function WorldSettings(props) {
           placeholder="Enter a world change delay"
           onChange={props.setValue}
         />
-        <small className="form-text text-muted">Time turn delay must be greater or equal 50 miliseconds</small>
       </div>
       <div className="wrapperMapSizeSetting">
         <div>Choose the size of the world: </div>
