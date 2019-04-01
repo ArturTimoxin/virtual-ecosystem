@@ -4,7 +4,6 @@ import Wall from "../../interface/entities/Wall";
 import Herbivore from "../../interface/entities/Herbivore";
 import Predator from "../../interface/entities/Predator";
 import Grass from "../../interface/entities/Grass";
-import { mediumPlan } from "../../startPlanesWorld";
 class ViewWorld extends Component {
   state = {
     world: [],
@@ -18,7 +17,7 @@ class ViewWorld extends Component {
   }
 
   createWorld = () => {
-    let world = new World(mediumPlan, { "#": Wall, o: Herbivore, "*": Grass, "@": Predator });
+    let world = new World(this.props.planMap, { "#": Wall, o: Herbivore, "*": Grass, "@": Predator });
     this.setState({ worldObj: world, world: world.getMapInfo().output, infoWorld: world.getMapInfo().countOfEntities });
   };
 

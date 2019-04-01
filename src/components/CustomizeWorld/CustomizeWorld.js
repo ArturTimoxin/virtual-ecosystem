@@ -26,6 +26,7 @@ export default function CustomizeWorld(props) {
               <input
                 type="number"
                 min="15"
+                max="100"
                 defaultValue={widthMap}
                 id="widthMap"
                 className="form-control"
@@ -33,7 +34,7 @@ export default function CustomizeWorld(props) {
                 placeholder="Enter size width"
                 onChange={setCustomMapValue}
               />
-              <small className="form-text text-muted">Width must be greater or equal 15</small>
+              <small className="form-text text-muted">Width must be between 15 and 100</small>
             </div>
           </div>
           <div className="col">
@@ -42,6 +43,7 @@ export default function CustomizeWorld(props) {
               <input
                 type="number"
                 min="15"
+                max="50"
                 defaultValue={heightMap}
                 id="heightMap"
                 className="form-control"
@@ -49,7 +51,7 @@ export default function CustomizeWorld(props) {
                 placeholder="Enter size height"
                 onChange={setCustomMapValue}
               />
-              <small className="form-text text-muted">Height must be greater or equal 15</small>
+              <small className="form-text text-muted">Height must be between 15 and 50</small>
             </div>
           </div>
         </div>

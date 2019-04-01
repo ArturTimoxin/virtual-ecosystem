@@ -3,11 +3,17 @@ import ViewWorld from "./components/ViewWorld/ViewWorld";
 import CustomizeWorld from "./components/CustomizeWorld/CustomizeWorld";
 import "./App.css";
 
+/* 
+  TODO: Необходимо доработать:
+  1. Случайную генерацию карты с заданым количеством сущностей.
+  2. Установку начального значения энергии для каждого из существ.
+*/
+
 class App extends Component {
   state = {
     showViewWorld: false,
-    widthMap: 20,
-    heightMap: 20,
+    widthMap: 60,
+    heightMap: 30,
     countHerbivores: 15,
     initialEnergyHerbivore: 20,
     countPredators: 10,
@@ -16,6 +22,7 @@ class App extends Component {
     initialEnergyGrass: 4,
     countWalls: 5,
     turnDelay: 300,
+    planMap: [],
   };
 
   toggleShowViewWorld = () => {
@@ -24,12 +31,78 @@ class App extends Component {
 
   setCustomizeSettingsWorld = e => {
     e.preventDefault();
-    console.log(this.state);
+    const { widthMap, heightMap, countHerbivores, countPredators, countGrass, countWalls } = this.state;
+    this.createMap(widthMap, heightMap, countHerbivores, countPredators, countGrass, countWalls);
     this.toggleShowViewWorld();
   };
 
   setCustomMapValue = e => {
     this.setState({ [e.target.name]: Number(e.target.value) });
+  };
+
+  createMap = (widthMap, heightMap, countHerbivores, countPredators, countGrass, countWalls) => {
+    let map = [];
+    let countHerbivoresOnMap = 0,
+      countPredatorsOnMap = 0,
+      countGrassOnMap = 0,
+      countWallsOnMap = 0;
+    for (let y = 0; y < heightMap; y++) {
+      let tmpString = "";
+      if (y === 0 || y === heightMap - 1) {
+        map[y] = tmpString.padEnd(widthMap, "#");
+        continue;
+      }
+      for (let x = 0; x < widthMap; x++) {
+        if (x === 0 || x === widthMap - 1) {
+          tmpString += "#";
+        } else {
+          switch (Math.floor(Math.random() * 5)) {
+            case 1: {
+              if (countGrassOnMap <= countGrass - 1) {
+                tmpString += "*";
+                countGrassOnMap++;
+              } else {
+                tmpString += " ";
+              }
+              break;
+            }
+            case 2: {
+              if (countHerbivoresOnMap <= countHerbivores - 1) {
+                tmpString += "o";
+                countHerbivoresOnMap++;
+              } else {
+                tmpString += " ";
+              }
+              break;
+            }
+            case 3: {
+              if (countPredatorsOnMap <= countPredators - 1) {
+                tmpString += "@";
+                countPredatorsOnMap++;
+              } else {
+                tmpString += " ";
+              }
+              break;
+            }
+            case 4: {
+              if (countWallsOnMap <= countWalls - 1) {
+                tmpString += "#";
+                countWallsOnMap++;
+              } else {
+                tmpString += " ";
+              }
+              break;
+            }
+            default: {
+              tmpString += " ";
+            }
+          }
+        }
+      }
+      map[y] = tmpString;
+    }
+    // TODO: Сделать проверку на соответствие количества сущностей на карте
+    this.setState({ planMap: map });
   };
 
   render() {
@@ -45,12 +118,13 @@ class App extends Component {
       initialEnergyGrass,
       countWalls,
       turnDelay,
+      planMap,
     } = this.state;
     return (
       <div className="App">
         <h1>Virtual Ecosystem</h1>
         {showViewWorld ? (
-          <ViewWorld toggleShowViewWorld={this.toggleShowViewWorld} />
+          <ViewWorld toggleShowViewWorld={this.toggleShowViewWorld} planMap={planMap} />
         ) : (
           <CustomizeWorld
             setCustomizeSettingsWorld={this.setCustomizeSettingsWorld}
