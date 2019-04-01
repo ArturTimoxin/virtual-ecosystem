@@ -8,9 +8,11 @@ Symbols:
 "#" - wall, does not move, acts as an obstacle
 
 " "(space) - empty space to become
+
 "o" - herbivorous creature, can walk in any direction, eat grass, multiply
 
 "\*" grass - serves as food for herbivores, can multiply
+
 @ - predatory creature, eat herbivores does not eat grass, can multiply.
 
 With a given delay, the move is performed, every living creature moves in a random direction, eating its food, if it is in sight. The field of view of any entity is 1 cell around the creature.
