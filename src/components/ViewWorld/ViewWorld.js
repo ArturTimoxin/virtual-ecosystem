@@ -54,16 +54,17 @@ class ViewWorld extends Component {
 
   render() {
     const { world, titleStartBtn, infoWorld } = this.state;
+    const { toggleShowViewWorld } = this.props;
     return (
       <div className="viewWorld">
         <div className="wrapperButtons">
-          <button id="btnStart-Pause" onClick={this.startStopBtn}>
+          <button id="btnStart-Pause" type="button" className="btn btn-success" onClick={this.startStopBtn}>
             {titleStartBtn}
           </button>
-          <button id="btnNextStep" onClick={this.nextStep}>
+          <button id="btnNextStep" type="button" className="btn btn-primary" onClick={this.nextStep}>
             Next Step
           </button>
-          <button id="btnRestart" onClick={this.restartWorld}>
+          <button id="btnRestart" type="button" className="btn btn-danger" onClick={this.restartWorld}>
             Restart
           </button>
         </div>
@@ -85,6 +86,11 @@ class ViewWorld extends Component {
               </div>
             );
           })}
+        </div>
+        <div className="wrapBackToSettings">
+          <button onClick={toggleShowViewWorld} type="button" class="btn btn-secondary">
+            Back to Customize Map
+          </button>
         </div>
       </div>
     );
